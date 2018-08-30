@@ -1,13 +1,16 @@
 // Enemies our player must avoid
+var hasExecuted = false;
 var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
+
     this.sprite = 'images/enemy-bug.png';
-    this.x=10;
-    this.y=10;
+    this.x = 10;
+    this.y = this.x ;
+	  
 };
 
 // Update the enemy's position, required method for game
@@ -16,13 +19,33 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x += (dt*20);
+  //  this.y+=dt;
 };
 
 
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+
+    var sprite = Resources.get(this.sprite);
+	
+    var height = sprite.height,
+          width  = sprite.width;
+	
+	if(!hasExecuted){
+    (function(){
+
+     Enemy.prototype.height = height;
+	
+	Enemy.prototype.width = width;
+	 console.log('in function!');
+
+    })();
+	hasExecuted = true;
+	}
+	
+	ctx.drawImage(sprite, this.x, this.y);
 };
 
 // Now write your own player class
@@ -38,7 +61,23 @@ Enemy.prototype.render = function() {
 
   };
   this.render = function(){
-      ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+      var sprite = Resources.get(this.sprite);
+	
+    ctx.drawImage(sprite, this.x, this.y);
+	
+	if(!hasExecuted){
+    (function(){
+
+      var height = sprite.height,
+          width  = sprite.width;
+
+      var heightWidthArray = [height, width];
+		Enemy.height = height;
+		Enemy.width = width;
+
+    })();
+	hasExecuted = true;
+	}
   };
   this.handleInput = function(){
 
@@ -46,8 +85,9 @@ Enemy.prototype.render = function() {
 };
 
 // Now instantiate your objects.
-
-var  allEnemies =[];
+var e = new Enemy();
+console.log(e.sprite.height);
+var  allEnemies =[ new Enemy(),new Enemy(),new Enemy()];
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
@@ -63,5 +103,5 @@ document.addEventListener('keyup', function(e) {
         40: 'down'
     };
 
-    player.handleInput(allowedKeys[e.keyCode]);
+   // player.handleInput(allowedKeys[e.keyCode]);
 });
