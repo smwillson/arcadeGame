@@ -8,6 +8,7 @@ var allowedKeys;
 var now = Date.now();
 var totalTimeElasped, totalEmenySprites;
 var isEnemyOutOfBounds,isPlayerOutOfBounds;
+const spriteMovement = 10;
 
 var Enemy = function(yCoordinate) {
   // Variables applied to each of our instances go here,
@@ -108,13 +109,16 @@ return isEnemyOutOfBounds;
 //y =-180 when sprite touches water
 Player.prototype.update = function(){
 
-  if(!this.checkIfPlayerOutOfBounds(this)){
-  this.x = this.x - 10;
+  if(this.x > 420){
+  this.x = this.x - spriteMovement;
 }
-else{
-  this.x = startingXPosition;
-  isPlayerOutOfBounds = false;
+if(this.x < -10){
+this.x = this.x + spriteMovement;
 }
+if(this.y > 280){
+  this.y = this.y - spriteMovement;
+}
+
 
 }
 // Draw the enemy on the screen, required method for game
@@ -142,7 +146,7 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(allowedKeyCode){
-  const spriteMovement = 10;
+
 switch (allowedKeyCode) {
   case 'left':this.x -=spriteMovement;
 
