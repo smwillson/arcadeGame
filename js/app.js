@@ -34,7 +34,7 @@ Enemy.prototype.update = function(dt) {
   // which will ensure the game runs at the same speed for
   // all computers.
 
-  if(!checkIfOutOfBounds(this)){
+  if(!this.checkIfOutOfBounds(this)){
   this.x += (dt * this.rateOfMovement(10, 100));
 }
 else{
@@ -137,14 +137,14 @@ allEnemies.forEach(function checkIfOutOfBounds(enemy){
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-function checkIfOutOfBounds(enemy){
+Enemy.prototype.checkIfOutOfBounds= function(enemy){
 //  console.log('I am at'+enemy.x);
     if(enemy.x > 505){
     isOutOfBounds = true;
-  
+
   }
 return isOutOfBounds;
-  }
+};
 
 
 
