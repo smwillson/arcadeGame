@@ -118,7 +118,11 @@ this.x = this.x + spriteMovement;
 if(this.y > 280){
   this.y = this.y - spriteMovement;
 }
-
+if(this.y <= -180){
+  window.alert('Game won!');
+  this.x = playerStartXPosition;
+  this.y = playerStartXPosition;
+}
 
 }
 // Draw the enemy on the screen, required method for game
