@@ -1,11 +1,13 @@
 // Enemies our player must avoid
 var hasExecuted = false;
+var hasPlayerExecuted = false;
 const totalEnemySprites = 5;
 const startingXPosition = -100;
-let isOutOfBounds = false;
-
+const playerStartXPosition = 200 , playerStartYPosition = 200;
+var allowedKeys;
 var now = Date.now();
 var totalTimeElasped, totalEmenySprites;
+var isEnemyOutOfBounds,isPlayerOutOfBounds;
 
 var Enemy = function(yCoordinate) {
   // Variables applied to each of our instances go here,
@@ -21,7 +23,7 @@ var Enemy = function(yCoordinate) {
 
 };
 
-//give the enemy sprite a speed at which it moves; speed will be between x and 10x.
+//give the enemy sprite a speed at which it moves; speed will be between x and 100x.
 //random number generator : https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
 Enemy.prototype.rateOfMovement = function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
@@ -34,12 +36,12 @@ Enemy.prototype.update = function(dt) {
   // which will ensure the game runs at the same speed for
   // all computers.
 
-  if(!this.checkIfOutOfBounds(this)){
-  this.x += (dt * this.rateOfMovement(10, 100));
+  if(!this.checkIfOutOfBoundsEnemy(this)){
+  this.x += (dt * this.rateOfMovement(10, 1000));
 }
 else{
   this.x = startingXPosition;
-  isOutOfBounds = false;
+  isEnemyOutOfBounds = false;
 }
 };
 
@@ -68,42 +70,6 @@ Enemy.prototype.render = function() {
 
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-
-/* function Player(){
-
-  this.sprite = 'images/char-pink-girl.png';
-  this.x=10;
-  this.y=10;
-  this.update = function(dt){
-
-  };
-  this.render = function(){
-      var sprite = Resources.get(this.sprite);
-
-    ctx.drawImage(sprite, this.x, this.y+this.height);
-
-	if(!hasExecuted){
-    (function(){
-
-      var height = sprite.height,
-          width  = sprite.width;
-
-      var heightWidthArray = [height, width];
-		Enemy.height = height;
-		Enemy.width = width;
-
-    })();
-	hasExecuted = true;
-	}
-  };
-  this.handleInput = function(){
-
-  };
-};*/
-
 // Now instantiate your objects.
 
 var allEnemies = [];
@@ -119,44 +85,99 @@ var allEnemies = [];
 
 })();
 
+//check if enemy is outside the boundary of the canvas
+Enemy.prototype.checkIfOutOfBoundsEnemy= function(enemy){
+//  console.log('I am at'+enemy.x);
+    if(enemy.x > 505){
 
-//what to do when a sprite crosses the canvas boundary
+    isEnemyOutOfBounds = true;
 
-/*if(this.currentXPosition > 505){
+  }
+return isEnemyOutOfBounds;
+};
 
+// Now write your own player class
+// This class requires an update(), render() and
+// a handleInput() method.
+
+ var Player = function(){
+  this.sprite = 'images/char-pink-girl.png';
+  this.x=playerStartXPosition;
+  this.y=playerStartYPosition;
+};
+//y =-180 when sprite touches water
+Player.prototype.update = function(){
+
+  if(!this.checkIfPlayerOutOfBounds(this)){
+  this.x = this.x - 10;
+}
+else{
   this.x = startingXPosition;
+  isPlayerOutOfBounds = false;
+}
 
 }
-allEnemies.forEach(function checkIfOutOfBounds(enemy){
-  if(this.currentXPosition > 505){
-  isOutOfBounds = true;
-  console.log('I am out of bounds!');}
+// Draw the enemy on the screen, required method for game
+Player.prototype.render = function() {
 
-});*/
+  let sprite = Resources.get(this.sprite);
+
+  var height = sprite.height,
+    width = sprite.width;
+
+  if (!hasPlayerExecuted) {
+    (function() {
+
+      Player.prototype.height = height;
+
+      Player.prototype.width = width;
+      console.log('in function!');
+
+    })();
+    hasPlayerExecuted = true;
+  }
+
+  ctx.drawImage(sprite, this.x, this.y + height);
+
+};
+
+Player.prototype.handleInput = function(allowedKeyCode){
+  const spriteMovement = 10;
+switch (allowedKeyCode) {
+  case 'left':this.x -=spriteMovement;
+
+    break;
+    case 'right':this.x +=spriteMovement;
+
+      break;
+      case 'up':this.y -=spriteMovement;
+
+        break;
+        case 'down':this.y +=spriteMovement;
+
+          break;
+  default:
+
+}
+
+};
+var player = new Player();
 
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-Enemy.prototype.checkIfOutOfBounds= function(enemy){
-//  console.log('I am at'+enemy.x);
-    if(enemy.x > 505){
-    isOutOfBounds = true;
-
-  }
-return isOutOfBounds;
-};
 
 
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
-  var allowedKeys = {
+   allowedKeys = {
     37: 'left',
     38: 'up',
     39: 'right',
     40: 'down'
   };
 
-  // player.handleInput(allowedKeys[e.keyCode]);
+   player.handleInput(allowedKeys[e.keyCode]);
 });
