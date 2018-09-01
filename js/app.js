@@ -38,9 +38,9 @@ Enemy.prototype.update = function (dt) {
 	// all computers.
 	if (!isCollision) {
 		if (!this.checkIfOutOfBoundsEnemy(this)) {
-			this.x += (dt * this.rateOfMovement(1, 10));
+			this.x += (dt * this.rateOfMovement(1, 100));
 		} else {
-			this.x = startingXPosition;
+      this.reset();
 			isEnemyOutOfBounds = false;
 		}
     //detect collision
@@ -50,10 +50,10 @@ Enemy.prototype.update = function (dt) {
 			player.y < this.y + this.height / 2 &&
 			player.y + player.height / 2 > this.y) {
 			isCollision = true;
+      this.reset();
 		}
 
 	} else {
-
 
 		player.reset();
 	}
@@ -84,7 +84,7 @@ Enemy.prototype.render = function () {
 };
 
 // Now instantiate your objects.
-
+// Place all enemy objects in an array called allEnemies
 var allEnemies = [];
 
 (function createEnemySprites() {
@@ -100,7 +100,7 @@ var allEnemies = [];
 
 //check if enemy is outside the boundary of the canvas
 Enemy.prototype.checkIfOutOfBoundsEnemy = function (enemy) {
-	//  console.log('I am at'+enemy.x);
+
 	if (enemy.x > 505) {
 
 		isEnemyOutOfBounds = true;
@@ -108,6 +108,12 @@ Enemy.prototype.checkIfOutOfBoundsEnemy = function (enemy) {
 	}
 	return isEnemyOutOfBounds;
 };
+
+Enemy.prototype.reset = function(){
+
+	this.x = startingXPosition;
+
+}
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -202,11 +208,11 @@ Player.prototype.handleInput = function (allowedKeyCode) {
 	}
 
 };
-var player = new Player();
 
-// Place all enemy objects in an array called allEnemies
+
+
 // Place the player object in a variable called player
-
+var player = new Player();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
