@@ -120,7 +120,7 @@ Enemy.prototype.reset = function(){
 // a handleInput() method.
 
 var Player = function () {
-	this.sprite = 'images/char-pink-girl.png';
+	this.sprite = 'images/char-cat-girl.png';
 	this.x = playerStartXPosition;
 	this.y = playerStartYPosition;
 };
