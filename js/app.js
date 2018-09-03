@@ -67,6 +67,7 @@ Enemy.prototype.render = function () {
 
 	var height = sprite.height,
 		width = sprite.width;
+		// this block executes only once to calculate the height and width of the enemy
 
 	if (!hasExecuted) {
 		(function () {
@@ -138,7 +139,7 @@ Player.prototype.update = function () {
 		this.y = this.y - spriteMovement;
 	}
 	if (this.y <= -180) {
-		window.alert('Game won!');
+		window.alert('Me-wow you won!');
 		this.x = playerStartXPosition;
 		this.y = playerStartXPosition;
 	}
@@ -162,7 +163,7 @@ Player.prototype.render = function () {
 
 	var height = sprite.height,
 		width = sprite.width;
-
+// this block executes only once to calculate the height and width of the player
 	if (!hasPlayerExecuted) {
 		(function () {
 
