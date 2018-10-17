@@ -23,23 +23,24 @@ To run the game, simply open the index.html file.
 
 # Core functionality
 
-# Enemy Core functionality
+#### Enemy Core functionality
 
 1. update : updates the enemies' x-axis movement on the canvas, also checks for collisions.
 
 2. render : renders all the enemies on the canvas, also calculates the length and width of the sprites, which is during collision calculations.
 
-3.  createEnemySprites : creates an array of enemy sprites.
+3. createEnemySprites : creates an array of enemy sprites.
 
-4.  checkIfOutOfBoundsEnemy : checks if the enemy is out of the canvas boundary.
+4. checkIfOutOfBoundsEnemy : checks if the enemy is out of the canvas boundary.
 
 5. rateOfMovement : assigns a random speed to the sprite.
 
 6. reset: resets the position of the enemy sprite on the canvas.
 
- #Player Core functionality
 
-1. update : updates the movement of the player sprite on the canvas, also check if the player reached water i.e won and displays alert message.
+ #### Player Core functionality
+
+1. update : updates the movement of the player sprite on the canvas, also check if the player reached water i.e. won and displays alert message.
 
 2. render : renders the player on the canvas, also calculates the length and width of the sprite, which is used to check for collisions.
 
