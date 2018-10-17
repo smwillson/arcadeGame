@@ -1,16 +1,19 @@
 # Classic Arcade Game
+
 ===============================
 
 # How to download the project?
+
 In order to clone the project onto your computer via HTTPS URLs (recommended) do the following:
 
-1. Open a new command prompt window
+1.  Open a new command prompt window
 
-2. Type git clone https://github.com/smwillson/arcadeGame.git at the prompt.
+2.  Type git clone <https://github.com/smwillson/arcadeGame.git> at the prompt.
 
-More information : https://help.github.com/articles/which-remote-url-should-i-use/
+More information : <https://help.github.com/articles/which-remote-url-should-i-use/>
 
 # How to play the game?
+
 To run the game, simply open the index.html file.
 
  To play the game, simply move the player sprite up, down, left and right using the arrow keys on the keyboard.
@@ -18,37 +21,28 @@ To run the game, simply open the index.html file.
 
  If collision occurs, the sprites involved in the collision all reset.
 
- # Core functionality
+# Core functionality
 
- # Enemy Core functionality
+# Enemy Core functionality
 
+1. update : updates the enemies' x-axis movement on the canvas, also checks for collisions.
 
-#### update -- updates the enemies' x-axis movement on the canvas, also checks for collisions.
+2. render : renders all the enemies on the canvas, also calculates the length and width of the sprites, which is during collision calculations.
 
+3.  createEnemySprites : creates an array of enemy sprites.
 
- #### render -- renders all the enemies on the canvas, also calculates the length and width of the sprites, which is during collision calculations.
+4.  checkIfOutOfBoundsEnemy : checks if the enemy is out of the canvas boundary.
 
+5. rateOfMovement : assigns a random speed to the sprite.
 
- #### createEnemySprites -- creates an array of enemy sprites.
-
-
-
- #### checkIfOutOfBoundsEnemy -- checks if the enemy is out of the canvas boundary.
-
-
-
- #### rateOfMovement -- assigns a random speed to the sprite.
-
-
- #### reset -- resets the position of the enemy sprite on the canvas.
-
+6. reset: resets the position of the enemy sprite on the canvas.
 
  #Player Core functionality
 
- #### update -- updates the movement of the player sprite on the canvas, also check if the player reached water i.e won and displays alert message.
+1. update : updates the movement of the player sprite on the canvas, also check if the player reached water i.e won and displays alert message.
 
- #### render-- renders the player on the canvas, also calculates the length and width of the sprite, which is used to check for collisions.
+2. render : renders the player on the canvas, also calculates the length and width of the sprite, which is used to check for collisions.
 
- #### handleInput -- checks which key arrow key is pushed and makes appropriate changes to the sprite position.
+3. handleInput : checks which key arrow key is pushed and makes appropriate changes to the sprite position.
 
- #### reset -- resets the position of the player sprite on the canvas.
+4. reset : resets the position of the player sprite on the canvas.
